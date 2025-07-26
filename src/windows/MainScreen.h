@@ -14,13 +14,13 @@ public:
 
 	void SetUpImGui(GLFWwindow* window);      // imgui set up
 	void NewImGuiFrame(GLFWwindow* window);   // imgui new frame
-	void MainDockSpace(GLFWwindow* window);   // add docking
-	void MainSceneWindow(GLFWwindow* window); // the main scene window
+	void MainDockSpace(bool* p_open);		  // add docking
+	
 	void MainMenuBar(GLFWwindow* window);     // main menu bar
 
-	void WinInit(GLFWwindow* window);
+	void WinInit(GLFWwindow* window);		  // new frame, menu and dockspace
 
-	void RenderImGui(GLFWwindow* window);  // imgui main render
+	void RenderImGui(GLFWwindow* window);     // imgui main render
 
 	void ClearScreen();
 

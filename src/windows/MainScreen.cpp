@@ -49,13 +49,55 @@ void MainScreen::NewImGuiFrame(GLFWwindow* window)
     ImGui_ImplGlfw_NewFrame();
 
 }
-
-void MainScreen::MainDockSpace(GLFWwindow* window)
+// Docking Space
+bool DocOnOff = true; // make this a menu item or settings
+void MainScreen::MainDockSpace(bool* p_open)
 {
-}
+    if (DocOnOff) { // Docking on or off
+        static bool opt_fullscreen = true;
+        static bool opt_padding = false;
+        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;// I changed this so my scean shows up on start up
 
-void MainScreen::MainSceneWindow(GLFWwindow* window)
-{
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+        if (opt_fullscreen)
+        {
+            const ImGuiViewport* viewport = ImGui::GetMainViewport();
+            ImGui::SetNextWindowPos(viewport->WorkPos);
+            ImGui::SetNextWindowSize(viewport->WorkSize);
+            ImGui::SetNextWindowViewport(viewport->ID);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+            window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+            window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+        }
+        else
+        {
+            dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
+        }
+
+        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+            window_flags |= ImGuiWindowFlags_NoBackground;
+
+        if (!opt_padding)
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f)); // you can add a bit of padding  
+        ImGui::Begin("DockSpace Demo", p_open, window_flags);
+        if (!opt_padding)
+            ImGui::PopStyleVar();
+
+        if (opt_fullscreen)
+            ImGui::PopStyleVar(2);
+
+
+        // Submit the DockSpace to the ini file
+        ImGuiIO& io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+        {
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+        }
+
+        ImGui::End();
+    }
 }
 
 void MainScreen::MainMenuBar(GLFWwindow* window)
@@ -214,6 +256,9 @@ void MainScreen::WinInit(GLFWwindow* window)
 	MainScreen::NewImGuiFrame(window);
 	ImGui::NewFrame();
 	MainScreen::MainMenuBar(window);
+
+    bool p_open = true;
+    MainScreen::MainDockSpace(&p_open); // The Doc Space
 }
 
 void MainScreen::RenderImGui(GLFWwindow* window)

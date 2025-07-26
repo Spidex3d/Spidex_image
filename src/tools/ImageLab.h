@@ -12,10 +12,13 @@ public:
 	static ImageLab* Instance();
 	void Initialize(GLFWwindow* window);
 
+	void MainImageWindow(GLFWwindow* window); // the main scene window
 	void File_location(GLFWwindow* window);
 	void Image_Navigation(GLFWwindow* window);
 	void Color_palette(GLFWwindow* window);
 	void Layer_Manager(GLFWwindow* window);
+	
+	void GUI_Init(GLFWwindow* window);		// Initialize ImGui or any other GUI framework here
 	
 private:
 	GLFWwindow* window;

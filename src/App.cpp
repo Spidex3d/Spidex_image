@@ -31,7 +31,7 @@ void App::RunApp()
 	else
 	{
 		MainScreen::Instance()->Initialize(windowManager.GetWindow());
-		// load stuff in here
+		
 		MainScreen::Instance()->SetUpImGui(windowManager.GetWindow());
 	}
 
@@ -39,21 +39,25 @@ void App::RunApp()
 	{
 		if (glfwWindowShouldClose(windowManager.GetWindow())) { AppIsRunning = false; }
 		
-		MainScreen::Instance()->WinInit(windowManager.GetWindow());
+		MainScreen::Instance()->WinInit(windowManager.GetWindow());		// New Frame, Menu and DockSpace Init
 
-		ImageLab::Instance()->File_location(windowManager.GetWindow());
+		ImageLab::Instance()->GUI_Init(windowManager.GetWindow());		// window GUI Init
 
 		MainScreen::Instance()->BgColor(BgCol);
 		MainScreen::Instance()->ClearScreen();
 
-		MainScreen::Instance()->RenderImGui(windowManager.GetWindow());
+		MainScreen::Instance()->RenderImGui(windowManager.GetWindow()); // Render ImGui
 
 		glfwSwapBuffers(windowManager.GetWindow());
 		glfwPollEvents();
 	}
-
+	App::AppCleanup();
 }
 
 void App::AppCleanup()
 {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+	glfwTerminate();
 }

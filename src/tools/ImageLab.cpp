@@ -13,6 +13,10 @@ void ImageLab::Initialize(GLFWwindow* window)
 {
 }
 
+void ImageLab::MainImageWindow(GLFWwindow* window)
+{
+}
+
 void ImageLab::File_location(GLFWwindow* window)
 {
 	ImGui::Begin("File Location");
@@ -30,4 +34,9 @@ void ImageLab::Color_palette(GLFWwindow* window)
 
 void ImageLab::Layer_Manager(GLFWwindow* window)
 {
+}
+
+void ImageLab::GUI_Init(GLFWwindow* window)
+{
+	ImageLab::File_location(window);
 }
