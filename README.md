@@ -2,4 +2,4 @@ Hi there 👋 Spidex_2d_World is a ✨ special ✨ repository because its mine �
 
 ✨ week 1 Set up new project GLFW, OpenGL, ImGui
 
-https://github.com/Spidex3d/Spidex_image/blob/56662de6f2206dd282dfe5747a0af63f41d15616/images/Day_one.jpg
+![image_alt](https://github.com/Spidex3d/Spidex_image/blob/56662de6f2206dd282dfe5747a0af63f41d15616/images/Day_one.jpg)
