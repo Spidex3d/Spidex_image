@@ -42,6 +42,7 @@ void App::RunApp()
 		MainScreen::Instance()->WinInit(windowManager.GetWindow());		// New Frame, Menu and DockSpace Init
 
 		ImageLab::Instance()->GUI_Init(windowManager.GetWindow());		// window GUI Init
+		ImageLab::Instance()->MainImageWindow(windowManager.GetWindow()); // Main Image Window
 
 		MainScreen::Instance()->BgColor(BgCol);
 		MainScreen::Instance()->ClearScreen();
