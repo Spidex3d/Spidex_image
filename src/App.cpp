@@ -3,6 +3,7 @@
 #include "windows/MainScreen.h"
 #include "tools/ImageLab.h"
 #include "headers/GlobalVars.h"
+#include "headers\EditorInput.h"
 
 App::App()
 {
@@ -39,6 +40,8 @@ void App::RunApp()
 	{
 		if (glfwWindowShouldClose(windowManager.GetWindow())) { AppIsRunning = false; }
 		
+		EditorInput::Instance()->processInput(windowManager.GetWindow()); // Process input for the editor
+
 		MainScreen::Instance()->WinInit(windowManager.GetWindow());		// New Frame, Menu and DockSpace Init
 
 		ImageLab::Instance()->GUI_Init(windowManager.GetWindow());		// window GUI Init

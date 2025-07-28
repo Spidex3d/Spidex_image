@@ -37,6 +37,7 @@ public:
 	void Color_palette(GLFWwindow* window);
 	void Layer_Manager(GLFWwindow* window);
 	
+	
 	void GUI_Init(GLFWwindow* window);		// Initialize ImGui or any other GUI framework here
 
 	unsigned int LoadImagesFromFolder(const std::string& folderPath); // get all images from a folder

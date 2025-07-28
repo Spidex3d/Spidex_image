@@ -126,10 +126,9 @@ void MainScreen::MainMenuBar(GLFWwindow* window)
             spx_PickFolder folderPicker;
             spx_PickFolder::selectedFolder = spx_PickFolder::spx_Folder();
             if (!spx_PickFolder::selectedFolder.empty()) {
-                // Use spx_PickFolder::selectedFolder
+                folder_path = spx_PickFolder::selectedFolder;
             }
-           // std::cout << "Folder path " << selectedFolder.c_str() << std::endl; // Show path
-
+            std::cout << "Folder path " << folder_path << std::endl; // Show path
 
         }
         ImGui::Separator();

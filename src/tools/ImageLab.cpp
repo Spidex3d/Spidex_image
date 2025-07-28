@@ -5,6 +5,7 @@
 #include <stb/stb_image.h>
 #include <filesystem>
 #include "../windows/spx_FileDialog.h"
+#include "../windows/spx_PickFolder.h" 
 
 namespace fs = std::filesystem;
 
@@ -171,8 +172,23 @@ void ImageLab::MainImageWindow(GLFWwindow* window)
 
 void ImageLab::File_location(GLFWwindow* window)
 {
-	ImGui::Begin("File Location");
-	ImGui::Text(ICON_FA_FOLDER " File Location C:/path/to/image.png"); // Example file location
+	ImGui::Begin(ICON_FA_TOOLBOX " Tools");
+	ImGui::TextColored(COLOR_LIGHTGREEN, ICON_FA_FILE " Files"); // Example file location
+	if (ImGui::Button(ICON_FA_FOLDER " Folder", ImVec2(80, 25))) { // Open file dialog to select a folder
+        spx_PickFolder folderPicker;
+        spx_PickFolder::selectedFolder = spx_PickFolder::spx_Folder();
+        if (!spx_PickFolder::selectedFolder.empty()) {
+            folder_path = spx_PickFolder::selectedFolder;
+        }
+        std::cout << "Folder path " << folder_path << std::endl; // Show path
+    }
+	if (ImGui::Button(ICON_FA_FOLDER " Image", ImVec2(80, 25))) { // Open file dialog to select an image
+        spx_FileDialog openDialog;
+        std::string myTexturePath = openDialog.openFileDialog();
+        //ImGui::ColorButton(ICON_FA_FOLDER " Test", [1.0, 0.0, 0.0, 1.0], ImVec2(80, 25));
+    }
+	ImGui::TextColored(COLOR_LIGHTGREEN, ICON_FA_TOOLS " Tools"); // Example file location
+
 	ImGui::End(); // Close the window
 }
 
@@ -180,12 +196,19 @@ void ImageLab::Image_Navigation(GLFWwindow* window)
 {
     
     ImGui::Begin("Image Navigation");
-    ImGui::TextColored(COLOR_LIGHTBLUE, ICON_FA_IMAGE " Available Images");
 
-    if (!imageLoaded) {
-        LoadImagesFromFolder("images");
-        imageLoaded = true;
+    ImGui::TextColored(COLOR_LIGHTBLUE, ICON_FA_IMAGE " Available Images");
+    // set the folder path from an open dioalog box
+    try {
+        if (!imageLoaded && !folder_path.empty() && std::filesystem::exists(folder_path)) {
+            LoadImagesFromFolder(folder_path);
+            imageLoaded = true;
+        }
     }
+    catch (const std::filesystem::filesystem_error& e) {
+        std::cout << "Filesystem error: " << e.what() << std::endl;
+    }
+
     int imageCount = 0;
     for (const auto& folder : folderImages) {
         imageCount += folder.images.size();
@@ -224,16 +247,26 @@ void ImageLab::Image_Navigation(GLFWwindow* window)
 
 void ImageLab::Color_palette(GLFWwindow* window)
 {
+	ImGui::Begin("Color Palette");
+	ImGui::TextColored(COLOR_LIGHTGREEN, ICON_FA_PALETTE " Color Palette");
+	ImGui::Text("Select a color from the palette below:");
+	ImGui::ColorEdit4("Color", BgCol); // Color picker for background color
+	ImGui::ColorPicker4("Color Picker", BgCol, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel); // Color picker with no inputs or label
+   
+    ImGui::End(); // Close the window
 }
 
 void ImageLab::Layer_Manager(GLFWwindow* window)
 {
 }
 
+
+
 void ImageLab::GUI_Init(GLFWwindow* window)
 {
 	ImageLab::File_location(window);
 	ImageLab::Image_Navigation(window);
+    ImageLab::Color_palette(window);
 }
 
 unsigned int ImageLab::LoadImagesFromFolder(const std::string& folderPath)

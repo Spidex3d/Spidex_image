@@ -8,6 +8,7 @@ extern const char* SCR_TITLE;
 
 extern float BgCol[4]; // Default background color
 
+extern std::string folder_path;  // this is the folder path
 
 // Font indices for different font sizes
 enum FontIndex : int {
