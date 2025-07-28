@@ -1,4 +1,6 @@
 #pragma once
+#include <imgui\imgui.h>
+#include <iostream>
 
 extern const int SCR_WIDTH;
 extern const int SCR_HEIGHT;
@@ -7,7 +9,7 @@ extern const char* SCR_TITLE;
 extern float BgCol[4]; // Default background color
 
 
-
+// Font indices for different font sizes
 enum FontIndex : int {
 	REG_FONT_INDEX = 0,
 	SMALL_FONT_INDEX,
@@ -24,3 +26,8 @@ constexpr const char* FONT_PATH_MAIN = "Fonts/comic.ttf";
 constexpr const char* ROBOTO_REG_PATH = "Fonts/Roboto-Regular.ttf";
 constexpr const char* FA_REG_PATH = "Fonts/FA-Regular-400.otf";
 constexpr const char* FA_SOLID_PATH = "Fonts/FA-Solid-900.otf";
+
+// Colors
+const ImVec4 COLOR_LIGHTBLUE(0.43f, 0.7f, 0.89f, 1.0f);
+const ImVec4 COLOR_LIGHTGREEN(0.0f, 0.9f, 0.0f, 1.0f);
+const ImVec4 COLOR_NONE(0.0f, 0.0f, 0.0f, 0.0f);

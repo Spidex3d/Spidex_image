@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\windows\spx_PickFolder.cpp" />
+    <ClCompile Include="src\windows\spx_FileDialog.cpp" />
     <ClCompile Include="src\tools\ImageLab.cpp" />
     <ClCompile Include="src\windows\MainScreen.cpp" />
     <ClCompile Include="src\EditorInput.cpp" />
@@ -148,6 +150,8 @@
     <ClCompile Include="vendors\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\windows\spx_PickFolder.h" />
+    <ClInclude Include="src\windows\spx_FileDialog.h" />
     <ClInclude Include="src\tools\ImageLab.h" />
     <ClInclude Include="src\windows\MainScreen.h" />
     <ClInclude Include="src\headers\EditorInput.h" />

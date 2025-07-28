@@ -1,6 +1,10 @@
 #include "MainScreen.h"
 #include <imgui\ImGuiAF.h>
 #include "../headers/GlobalVars.h"
+#include "../windows/spx_FileDialog.h"
+#include "../windows/spx_PickFolder.h"  
+
+std::string spx_PickFolder::selectedFolder;
 
 MainScreen* MainScreen::Instance()
 {
@@ -112,6 +116,20 @@ void MainScreen::MainMenuBar(GLFWwindow* window)
         }
         if (ImGui::MenuItem("Open Image"))
         {
+            spx_FileDialog openDialog;
+            std::string myTexturePath = openDialog.openFileDialog();
+
+        }
+        
+        if (ImGui::MenuItem("Open Folder"))
+        {
+            spx_PickFolder folderPicker;
+            spx_PickFolder::selectedFolder = spx_PickFolder::spx_Folder();
+            if (!spx_PickFolder::selectedFolder.empty()) {
+                // Use spx_PickFolder::selectedFolder
+            }
+           // std::cout << "Folder path " << selectedFolder.c_str() << std::endl; // Show path
+
 
         }
         ImGui::Separator();
